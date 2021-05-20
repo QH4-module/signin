@@ -57,7 +57,7 @@ class Signin extends ServiceModel
                 ->cols($cols)
                 ->query();
             // 查找对应配置
-            $result_conf = QTTX::$app->db->select('*')
+            $result_conf = $this->external->getDb()->select('*')
                 ->from($this->external->confTableName())
                 ->where('keep_num <= :num and del_time=0')
                 ->bindValue('num', $cols['keep_num'])
@@ -93,7 +93,7 @@ class Signin extends ServiceModel
             $cols['real_keep_num'] = $result_last['real_keep_num'] + 1;
             $cols['total_num'] = $result_last['total_num'] + 1;
             // 查找最大连续签到次数
-            $max_num = QTTX::$app->db
+            $max_num = $this->external->getDb()
                 ->select('max(keep_num)')
                 ->from($this->external->confTableName())
                 ->where('del_time=0')

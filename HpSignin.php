@@ -34,7 +34,7 @@ class HpSignin
     {
         if (is_null($user_id)) $user_id = TokenFilter::getPayload('user_id');
         if (is_null($external)) $external = new ExtSignin();
-        if (is_null($db)) $db = QTTX::$app->db;
+        if (is_null($db)) $db = $external->getDb();
 
         return $db->select('*')
             ->from($external->tableName())
